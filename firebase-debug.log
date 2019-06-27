@@ -1,0 +1,21 @@
+[debug] [2019-06-27T10:44:32.612Z] ----------------------------------------------------------------------
+[debug] [2019-06-27T10:44:32.615Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\soyrimi\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2019-06-27T10:44:32.615Z] CLI Version:   7.0.2
+[debug] [2019-06-27T10:44:32.616Z] Platform:      win32
+[debug] [2019-06-27T10:44:32.616Z] Node Version:  v10.15.0
+[debug] [2019-06-27T10:44:32.619Z] Time:          Thu Jun 27 2019 13:44:32 GMT+0300 (GMT+03:00)
+[debug] [2019-06-27T10:44:32.619Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-06-27T10:44:32.635Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-06-27T10:44:32.635Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\soyrimi\Documents\react-omat\bowling-scores
+
