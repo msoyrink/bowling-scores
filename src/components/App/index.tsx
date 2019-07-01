@@ -1,9 +1,9 @@
 import React from 'react';
 import './styles.css'
-import HomePage from '../HomePage'
-import Login from '../Login'
-import Register from '../Register'
-import Score from '../Score'
+import HomePage from '../Pages/HomePage'
+import Login from '../Pages/Login'
+import Register from '../Pages/Register'
+import Score from '../Pages/Score'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import { CssBaseline, CircularProgress } from '@material-ui/core'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'

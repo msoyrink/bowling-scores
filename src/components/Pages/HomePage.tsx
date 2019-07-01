@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import Scorelist from './ScoreList';
+import Scorelist from '../ScoreList';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginRight: theme.spacing(2),
         },
         title: {
-            
+
         },
         toolbarcontainer: {
             display: "grid",
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: theme.spacing(1),
         },
         divTitle: {
-            
+
         },
         divAdd: {
             display: "flex",
@@ -54,7 +54,7 @@ const Homepage: React.FC = () => {
                 <Toolbar className={classes.toolbarcontainer}>
                     <div className={classes.divTitle}>
                         <Typography variant="h6" className={classes.title}>
-                        Keilaustulokset
+                            Keilaustulokset
                         </Typography>
                     </div>
                     <div className={classes.divAdd}>
