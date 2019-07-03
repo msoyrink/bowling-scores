@@ -1,12 +1,14 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 
 import scores from './dev-Scores';
-import { Container } from '@material-ui/core';
+import { Container, Icon } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
+
 
 const ExpansionPanel = withStyles({
   root: {
@@ -40,7 +42,9 @@ const ExpansionPanelSummary = withStyles({
       margin: '12px 0',
     },
   },
-  expanded: {},
+  expanded: {
+
+  },
 })(MuiExpansionPanelSummary);
 
 const ExpansionPanelDetails = withStyles(theme => ({
@@ -52,34 +56,42 @@ const ExpansionPanelDetails = withStyles(theme => ({
 
 
 const Scorelist: React.FC = () => {
-    const [expanded, setExpanded] = useState<string | false>('panel1')
+  const [expanded, setExpanded] = useState<string | false>('panel1')
 
-    const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
-        setExpanded(newExpanded ? panel : false);
-    }
-    return (
-        <Container>
-            {scores.map((score, index) => {
-            const ariacontrol = "d-content"
-            const panelid = "d-header"
-            return (
-                
-               <ExpansionPanel key={index} square expanded={expanded === score.uid} onChange={handleChange(score.uid)}>
-               <ExpansionPanelSummary aria-controls={ariacontrol} id={panelid}>
-                       <Typography>{score.Place} {score.Score}</Typography>
-               </ExpansionPanelSummary>
-               <ExpansionPanelDetails>
-                       <Typography>
-                           {score.Info}
-                       </Typography>
-               </ExpansionPanelDetails>
-           </ExpansionPanel>   
-            );
-            }
-            )
-        }   
-        </Container>
-        )        
+  const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
+    setExpanded(newExpanded ? panel : false);
+  }
+  return (
+    <Container>
+      {scores.map((score, index) => {
+        const ariacontrol = "d-content"
+        const panelid = "d-header"
+        return (
+
+          <ExpansionPanel key={index} square expanded={expanded === score.uid} onChange={handleChange(score.uid)}>
+            <ExpansionPanelSummary aria-controls={ariacontrol} id={panelid}>
+              <Typography style={{ flexGrow: 1 }}>{score.Place} {score.Score}</Typography>
+              <Link to={{
+                pathname: '/score/',
+
+              }} >
+                <Icon>
+                  edit
+                  </Icon>
+              </Link>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Typography>
+                {score.Info}
+              </Typography>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        );
+      }
+      )
+      }
+    </Container>
+  )
 }
 
 export default Scorelist;

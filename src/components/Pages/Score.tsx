@@ -16,19 +16,20 @@ const useStyles = makeStyles((theme: Theme) =>
             flexGrow: 1,
         },
         icon: {
-            margin: theme.spacing(2),
+            margin: theme.spacing(1),
         },
     }),
 );
 
-const Score: React.FC = () => {
+const Score: React.FC = (props: any) => {
     const classes = useStyles();
-
+    const id = props.match.params.id
+    console.log(id)
     return (
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <Button color="inherit" href="/" >
+                    <Button size="small" color="inherit" href="/" >
                         <Icon className={classes.icon}  >
                             keyboard_backspace
                     </Icon>

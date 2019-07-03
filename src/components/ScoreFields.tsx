@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -45,29 +45,38 @@ const places = [
 ]
 
 interface State {
-    name: string;
-    place: string;
-    result?: number;
-    pvm?: Date;
-    series?: string;
-    info?: string;
+    name: string,
+    place: string,
+    result?: number,
+    pvm?: Date,
+    series?: string,
+    info?: string,
 }
 
-interface Props {
-    name: string;
-    place: string;
-    result: number;
-    pvm: Date;
-    series: string;
-    info?: string;
+interface ResultProps {
+    name?: string,
+    place?: string,
+    result?: number,
+    pvm?: Date,
+    series?: string,
+    info?: string,
 }
 
-const ScoreFields: React.FC = () => {
+const ScoreFields: React.FC<ResultProps> = (props) => {
     const classes = useStyles();
-    const [values, setValues] = React.useState<State>({
+    const [values, setValues] = useState<State>({
         name: "",
         place: "",
         info: "",
+    });
+
+    useEffect(() => {
+        /* const result = await axios(
+          'http://hn.algolia.com/api/v1/search?query=redux',
+        );
+    
+        setData(result.data); */
+
     });
 
     const handleChange = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {

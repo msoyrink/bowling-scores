@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,7 +8,8 @@ import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Scorelist from '../ScoreList';
-
+import { withRouter } from 'react-router-dom'
+import firebase from '../firebase'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -40,17 +41,29 @@ const useStyles = makeStyles((theme: Theme) =>
             display: "flex",
             justifyContent: "flex-end",
         },
+        submit: {
+            marginTop: theme.spacing(0),
+        },
 
     }),
 );
 
 
-const Homepage: React.FC = () => {
+const Homepage: React.FC = (props: any) => {
     const classes = useStyles();
+
+
+    if (!firebase.getCurrentUsername()) {
+        // not logged in
+        alert('Please login first')
+        props.history.replace('/login')
+        return null
+    }
+
 
     return (
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar position="fixed">
                 <Toolbar className={classes.toolbarcontainer}>
                     <div className={classes.divTitle}>
                         <Typography variant="h6" className={classes.title}>
@@ -58,18 +71,30 @@ const Homepage: React.FC = () => {
                         </Typography>
                     </div>
                     <div className={classes.divAdd}>
-                        <Fab href="/score" color="primary" aria-label="Add" className={classes.fab}>
+                        <Fab href="/score" size="small" color="primary" aria-label="Add" className={classes.fab}>
                             <AddIcon />
                         </Fab>
                     </div>
                     <div className={classes.divLogout}>
-                        <Button color="inherit">Logout</Button>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="secondary"
+                            onClick={logout}
+                            className={classes.submit}>
+                            Logout
+          		</Button>
                     </div>
                 </Toolbar>
             </AppBar>
             <Scorelist />
         </div>
     )
+
+    async function logout() {
+        await firebase.logout()
+        props.history.push('/')
+    }
 }
 
-export default Homepage;
+export default withRouter((Homepage) as any);
