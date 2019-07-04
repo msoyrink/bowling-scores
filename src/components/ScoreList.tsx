@@ -11,11 +11,11 @@ import { Link } from 'react-router-dom';
 import firebase from './firebase';
 
 const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        container: {
-            marginTop: 60,
-        },
-    }),
+  createStyles({
+    container: {
+      marginTop: 60,
+    },
+  }),
 );
 
 const ExpansionPanel = withStyles({
@@ -72,7 +72,6 @@ const Scorelist: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await firebase.getAllScores()
-      console.log(result)
       setScoreData(result)
     }
     fetchData()
@@ -92,7 +91,7 @@ const Scorelist: React.FC = () => {
             <ExpansionPanelSummary aria-controls={ariacontrol} id={panelid}>
               <Typography style={{ flexGrow: 1 }}>{score.place} {score.result}</Typography>
               <Link to={{
-                pathname: '/score/',
+                pathname: `/score/${score.id}`,
 
               }} >
                 <Icon>

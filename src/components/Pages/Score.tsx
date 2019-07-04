@@ -24,8 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Score: React.FC = (props: any) => {
     const classes = useStyles();
-    const id = props.match.params.id
-    console.log(id)
+    const id: string = props.match.params.id
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -37,9 +36,9 @@ const Score: React.FC = (props: any) => {
                     </Button>
                 </Toolbar>
             </AppBar>
-            <ScoreFields />
+            <ScoreFields id={id} />
         </div>
     )
 }
 
-export default withRouter((Score) as any);
+export default Score;

@@ -3,7 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { InputLabel, Select, FormControl, Button } from '@material-ui/core';
 import firebase from './firebase';
-import { withRouter } from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -56,15 +56,10 @@ interface State {
 }
 
 interface ResultProps {
-    name?: string,
-    place?: string,
-    result?: number,
-    pvm?: Date,
-    series?: string,
-    info?: string,
+    id?: string,
 }
 
-const ScoreFields: React.FC<ResultProps> = (props: any) => {
+const ScoreFields: React.FC<ResultProps> = (props) => {
     const classes = useStyles();
     const [values, setValues] = useState<State>({
         name: "",
@@ -73,13 +68,12 @@ const ScoreFields: React.FC<ResultProps> = (props: any) => {
     });
 
     useEffect(() => {
-        /* const result = await axios(
-          'http://hn.algolia.com/api/v1/search?query=redux',
-        );
-    
-        setData(result.data); */
-
-    });
+        const fetchData = async () => {
+            const result: any = await firebase.getScoreById(props.id)
+            setValues(result)
+        }
+        fetchData()
+    }, []);
 
     const handleChange = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
         setValues({ ...values, [name]: event.target.value });
@@ -141,7 +135,7 @@ const ScoreFields: React.FC<ResultProps> = (props: any) => {
                     }}
                 >
                     <option value=""></option>
-                    {places.map( (place, index) => <option key={index} value={place}>{place}</option>)}
+                    {places.map((place, index) => <option key={index} value={place}>{place}</option>)}
                 </Select>
             </FormControl>
 
@@ -208,7 +202,7 @@ const ScoreFields: React.FC<ResultProps> = (props: any) => {
     async function onSave() {
         try {
             await firebase.addScore(values)
-            props.history.replace('/')
+            // props.children..history.replace('/')
         } catch (error) {
             alert(error.message)
         }
@@ -223,4 +217,4 @@ const ScoreFields: React.FC<ResultProps> = (props: any) => {
     }
 }
 
-export default withRouter((ScoreFields) as any);
+export default ScoreFields;
