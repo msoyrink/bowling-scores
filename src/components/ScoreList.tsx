@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import scores from './dev-Scores';
+// import scores from './dev-Scores';
 import { Container, Icon } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
+import firebase from './firebase';
 
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        container: {
+            marginTop: 60,
+        },
+    }),
+);
 
 const ExpansionPanel = withStyles({
   root: {
@@ -57,20 +65,32 @@ const ExpansionPanelDetails = withStyles(theme => ({
 
 const Scorelist: React.FC = () => {
   const [expanded, setExpanded] = useState<string | false>('panel1')
+  const [scoredata, setScoreData] = useState<any[]>()
+
+  const classes = useStyles()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await firebase.getAllScores()
+      console.log(result)
+      setScoreData(result)
+    }
+    fetchData()
+  }, []);
 
   const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
     setExpanded(newExpanded ? panel : false);
   }
   return (
-    <Container>
-      {scores.map((score, index) => {
+    <Container className={classes.container}>
+      {scoredata && scoredata.map((score: any, index: number) => {
         const ariacontrol = "d-content"
         const panelid = "d-header"
         return (
 
-          <ExpansionPanel key={index} square expanded={expanded === score.uid} onChange={handleChange(score.uid)}>
+          <ExpansionPanel key={index} square expanded={expanded === score.id} onChange={handleChange(score.id)}>
             <ExpansionPanelSummary aria-controls={ariacontrol} id={panelid}>
-              <Typography style={{ flexGrow: 1 }}>{score.Place} {score.Score}</Typography>
+              <Typography style={{ flexGrow: 1 }}>{score.place} {score.result}</Typography>
               <Link to={{
                 pathname: '/score/',
 
@@ -82,7 +102,7 @@ const Scorelist: React.FC = () => {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Typography>
-                {score.Info}
+                {score.info}
               </Typography>
             </ExpansionPanelDetails>
           </ExpansionPanel>

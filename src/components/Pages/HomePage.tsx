@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -55,7 +55,7 @@ const Homepage: React.FC = (props: any) => {
 
     if (!firebase.getCurrentUsername()) {
         // not logged in
-        alert('Please login first')
+        // alert('Please login first')
         props.history.replace('/login')
         return null
     }
@@ -75,16 +75,21 @@ const Homepage: React.FC = (props: any) => {
                             <AddIcon />
                         </Fab>
                     </div>
-                    <div className={classes.divLogout}>
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="secondary"
-                            onClick={logout}
-                            className={classes.submit}>
-                            Logout
-          		</Button>
-                    </div>
+                    {firebase.getCurrentUsername() && (
+                        <div className={classes.divLogout}>
+                            <p>{firebase.getCurrentUsername()}</p>
+                            <Button
+                                size="small"
+                                variant="contained"
+                                color="secondary"
+                                onClick={logout}
+                                className={classes.submit}>
+                                Logout
+          		                </Button>
+                        </div>
+                    )
+                    }
+
                 </Toolbar>
             </AppBar>
             <Scorelist />

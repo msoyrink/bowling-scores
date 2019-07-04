@@ -60,16 +60,16 @@ const SignIn: React.FC = (props: any) => {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign in
+                    Kirjautuminen
        			</Typography>
                 <form className={classes.form}
                     onSubmit={handleSubmit}>
                     <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="email">Email Address</InputLabel>
+                        <InputLabel htmlFor="email">Sähköpostiosoite</InputLabel>
                         <Input id="email" name="email" autoComplete="off" autoFocus value={email} onChange={e => setEmail(e.target.value)} />
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="password">Password</InputLabel>
+                        <InputLabel htmlFor="password">Salasana</InputLabel>
                         <Input name="password" type="password" id="password" autoComplete="off" value={password} onChange={e => setPassword(e.target.value)} />
                     </FormControl>
                     <Button
@@ -79,7 +79,7 @@ const SignIn: React.FC = (props: any) => {
                         color="primary"
                         onClick={login}
                         className={classes.submit}>
-                        Sign in
+                        Kirjaudu
           			</Button>
                     <Button
                         type="submit"
@@ -89,7 +89,7 @@ const SignIn: React.FC = (props: any) => {
                         component={Link}
                         to="/register"
                         className={classes.submit}>
-                        Register
+                        Rekisteröinti
           			</Button>
                 </form>
             </Paper>

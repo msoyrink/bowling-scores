@@ -45,7 +45,34 @@ class Firebase {
 	getCurrentUsername() {
 		return this.auth.currentUser && this.auth.currentUser.displayName
 	}
-		
+
+	addScore(score) {
+		if (!this.auth.currentUser) {
+			return alert('Not authorized')
+		}
+		return this.db.collection(`users-scores/${this.auth.currentUser.uid}/data`).add(
+			score
+		)
+	}
+
+	async getAllScores() {
+		/* this.db.collection('users-scores').doc(this.auth.currentUser.uid).collection('data').get().then(function (querySnapshot) {
+			querySnapshot.forEach(function (doc) {
+				// doc.data() is never undefined for query doc snapshots
+				console.log(doc.id, " => ", doc.data());
+			});
+		}); */
+		const scoresmap = await this.db.collection('users-scores').doc(this.auth.currentUser.uid).collection('data').get() // this.db.doc(param).get()
+		return scoresmap.docs.map((doc) => {
+			const id = doc.id
+			return (
+				{ ...doc.data(), id }
+			)
+		}
+
+		)
+	}
+
 }
 
 export default new Firebase()

@@ -59,19 +59,19 @@ const Register: React.FC = (props: any) => {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Register Account
+                    Tunnusten rekisteröinti
        			</Typography>
                 <form className={classes.form} onSubmit={handleFormSubmit}>
                     <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="name">Name</InputLabel>
+                        <InputLabel htmlFor="name">Nimi</InputLabel>
                         <Input id="name" name="name" autoComplete="off" autoFocus value={name} onChange={e => setName(e.target.value)} />
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="email">Email Address</InputLabel>
+                        <InputLabel htmlFor="email">Sähköpostiosoite</InputLabel>
                         <Input id="email" name="email" autoComplete="off" value={email} onChange={e => setEmail(e.target.value)} />
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="password">Password</InputLabel>
+                        <InputLabel htmlFor="password">Salasana</InputLabel>
                         <Input name="password" type="password" id="password" autoComplete="off" value={password} onChange={e => setPassword(e.target.value)} />
                     </FormControl>
 
@@ -82,7 +82,7 @@ const Register: React.FC = (props: any) => {
                         color="primary"
                         onClick={onRegister}
                         className={classes.submit}>
-                        Register
+                        Rekisteröi
           			</Button>
 
                     <Button
@@ -93,7 +93,7 @@ const Register: React.FC = (props: any) => {
                         component={Link}
                         to="/login"
                         className={classes.submit}>
-                        Go back to Login
+                        Takaisin kirjautumiseen
           			</Button>
                 </form>
             </Paper>

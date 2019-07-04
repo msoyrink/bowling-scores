@@ -1,8 +1,9 @@
 import React from 'react';
-import { AppBar, Toolbar, Fab, Button } from '@material-ui/core';
+import { AppBar, Toolbar, Button } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import ScoreFields from '../ScoreFields';
+import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -41,4 +42,4 @@ const Score: React.FC = (props: any) => {
     )
 }
 
-export default Score;
+export default withRouter((Score) as any);
