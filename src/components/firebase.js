@@ -50,9 +50,17 @@ class Firebase {
 		if (!this.auth.currentUser) {
 			return alert('Not authorized')
 		}
-		return this.db.collection(`users-scores/${this.auth.currentUser.uid}/data`).add(
-			score
-		)
+		// check if new or update
+		if (score.id) {
+			return this.db.collection('users-scores').doc(this.auth.currentUser.uid).collection('data').doc(score.id).set (
+				score
+				, { merge: true })
+		} else {
+			return this.db.collection(`users-scores/${this.auth.currentUser.uid}/data`).add(
+				score
+			)
+		}
+		
 	}
 
 	async getAllScores() {
@@ -81,7 +89,9 @@ class Firebase {
 		}); */
 		const data = this.db.collection('users-scores').doc(this.auth.currentUser.uid).collection('data').doc(id).get().then(function (doc) {
 			if (doc.exists) {
-				return doc.data()
+				const doc_added_id = {...doc.data(), id}
+				console.log(doc_added_id)
+				return doc_added_id
 			} else {
 				// doc.data() will be undefined in this case
 				return null

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { InputLabel, Select, FormControl, Button } from '@material-ui/core';
+import { KeyboardDatePicker } from "@material-ui/pickers";
 import firebase from './firebase';
 
 
@@ -72,8 +73,10 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
             const result: any = await firebase.getScoreById(props.id)
             setValues(result)
         }
-        fetchData()
-    }, []);
+
+        if (props.id) fetchData()
+        
+    }, [props.id]);
 
     const handleChange = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
         setValues({ ...values, [name]: event.target.value });
@@ -109,6 +112,13 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
                 onChange={handleChange('name')}
                 margin="normal"
             />
+            <KeyboardDatePicker
+                className={classes.textField}
+                clearable
+                value={values.pvm}
+                onChange={() => handleChange('pvm')}
+                format="dd.MM.yyyy"
+      />
             <TextField
                 id="date"
                 label="Pvm"
@@ -186,16 +196,7 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
                 onClick={onSave}
                 className={classes.submit}>
                 Tallenna
-          			</Button>
-            <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                onClick={getAll}
-                className={classes.submit}>
-                Hae
-          			</Button>
+          	</Button>
         </form>
     )
 

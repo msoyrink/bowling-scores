@@ -2,8 +2,9 @@ import React from 'react';
 import { AppBar, Toolbar, Button } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 import ScoreFields from '../ScoreFields';
-import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -24,8 +25,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Score: React.FC = (props: any) => {
     const classes = useStyles();
-    const id: string = props.match.params.id
+    const id: string = props.match.params.id ? props.match.params.id : ""
     return (
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
@@ -38,6 +40,7 @@ const Score: React.FC = (props: any) => {
             </AppBar>
             <ScoreFields id={id} />
         </div>
+        </MuiPickersUtilsProvider>
     )
 }
 
