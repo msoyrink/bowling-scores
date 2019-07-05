@@ -119,19 +119,7 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
                 onChange={() => handleChange('pvm')}
                 format="dd.MM.yyyy"
       />
-            <TextField
-                id="date"
-                label="Pvm"
-                type="date"
-                defaultValue=""
-                className={classes.textField}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                value={values.pvm}
-                onChange={handleChange('pvm')}
-                margin="normal"
-            />
+            
             <FormControl className={classes.selectField}>
                 <InputLabel htmlFor="place-select" shrink={true}>Keilahalli</InputLabel>
                 <Select
