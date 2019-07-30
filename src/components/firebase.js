@@ -57,7 +57,7 @@ class Firebase {
 				, { merge: true })
 		} else {
 			return this.db.collection(`users-scores/${this.auth.currentUser.uid}/data`).add(
-				score
+				{...score, 'name': this.getCurrentUsername()}
 			)
 		}
 		

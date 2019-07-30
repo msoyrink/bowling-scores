@@ -52,7 +52,7 @@ interface State {
     name: string,
     place: string,
     result: number,
-    pvm?: Date,
+    pvm: Date,
     series: number,
     info?: string,
 }
@@ -69,6 +69,7 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
         info: "",
         result: 0,
         series: 6,
+        pvm: new Date(),
     });
 
     useEffect(() => {
