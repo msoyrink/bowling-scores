@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-const Homepage: React.FC = (props: any) => {
+const Homepage: React.FC = (props:  undefined|any) => {
     const classes = useStyles();
 
 

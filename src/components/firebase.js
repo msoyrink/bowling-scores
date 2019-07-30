@@ -89,7 +89,7 @@ class Firebase {
 		}); */
 		const data = this.db.collection('users-scores').doc(this.auth.currentUser.uid).collection('data').doc(id).get().then(function (doc) {
 			if (doc.exists) {
-				const doc_added_id = {...doc.data(), id}
+				const doc_added_id = {...doc.data(), id, 'pvm': doc.data().pvm.toDate() }
 				console.log(doc_added_id)
 				return doc_added_id
 			} else {

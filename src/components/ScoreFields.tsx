@@ -3,6 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { InputLabel, Select, FormControl, Button } from '@material-ui/core';
 import { KeyboardDatePicker } from "@material-ui/pickers";
+import { format } from 'date-fns'
 import firebase from './firebase';
 
 
@@ -50,9 +51,9 @@ const places = [
 interface State {
     name: string,
     place: string,
-    result?: number,
+    result: number,
     pvm?: Date,
-    series?: string,
+    series: number,
     info?: string,
 }
 
@@ -66,6 +67,8 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
         name: "",
         place: "",
         info: "",
+        result: 0,
+        series: 6,
     });
 
     useEffect(() => {
@@ -81,6 +84,18 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
     const handleChange = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
         setValues({ ...values, [name]: event.target.value });
     };
+
+    const handleChangeNumber = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+        setValues({ ...values, [name]: parseInt(event.target.value, 10)});
+    };
+
+    const handleDateChange = (value: any)  => {
+        console.log(value)
+        const formatvalue = format(value, 'dd.MM.yyyy')
+        console.log(formatvalue)
+        setValues({ ...values, pvm: value});
+    };
+    
 
     const handleSelectChange = (name: keyof typeof values) => (
         event: React.ChangeEvent<{ value: unknown }>,
@@ -116,8 +131,9 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
                 className={classes.textField}
                 clearable
                 value={values.pvm}
-                onChange={() => handleChange('pvm')}
+                onChange={(newValue) => handleDateChange(newValue)}
                 format="dd.MM.yyyy"
+                margin="normal"
       />
             
             <FormControl className={classes.selectField}>
@@ -141,7 +157,7 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
                 id="result"
                 label="Tulos"
                 value={values.result}
-                onChange={handleChange('result')}
+                onChange={handleChangeNumber('result')}
                 type="number"
                 className={classes.textField}
                 InputLabelProps={{
@@ -153,7 +169,7 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
                 id="rsarjat"
                 label="Sarjamäärä"
                 value={values.series}
-                onChange={handleChange('series')}
+                onChange={handleChangeNumber('series')}
                 type="number"
                 className={classes.textField}
                 InputLabelProps={{
@@ -190,20 +206,14 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
 
     async function onSave() {
         try {
+            console.log(values)
             await firebase.addScore(values)
             // props.children..history.replace('/')
         } catch (error) {
             alert(error.message)
         }
     }
-    function getAll() {
-        try {
-            const s = firebase.getAllScores()
-            console.log(s)
-        } catch (error) {
-            alert(error.message)
-        }
-    }
+   
 }
 
 export default ScoreFields;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 // import scores from './dev-Scores';
 import { Container, Icon } from '@material-ui/core';
-import { withStyles, makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { withStyles, makeStyles} from '@material-ui/core/styles';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -10,13 +10,11 @@ import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import firebase from './firebase';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles({
     container: {
       marginTop: 60,
     },
-  }),
-);
+  });
 
 const ExpansionPanel = withStyles({
   root: {
@@ -109,6 +107,8 @@ const Scorelist: React.FC = () => {
       }
       )
       }
+      {!scoredata && <p>EI TULOKSIA</p>}
+      
     </Container>
   )
 }
