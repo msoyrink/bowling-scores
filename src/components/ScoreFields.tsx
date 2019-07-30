@@ -115,18 +115,7 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
 
     return (
         <form className={classes.container} noValidate autoComplete="off" onSubmit={handleFormSubmit}>
-            <TextField
-                className={classes.textField}
-                required
-                id="name"
-                label="Nimi"
-                value={values.name}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                onChange={handleChange('name')}
-                margin="normal"
-            />
+ 
             <KeyboardDatePicker
                 className={classes.textField}
                 clearable
