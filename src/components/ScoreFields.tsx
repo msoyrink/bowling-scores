@@ -5,7 +5,7 @@ import { InputLabel, Select, FormControl, Button } from '@material-ui/core';
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import { format } from 'date-fns'
 import firebase from './firebase';
-
+import { places } from './Keilahallit';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -42,12 +42,6 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const places = [
-    "Kemin keilahalli",
-    "Tornion keilahalli",
-    "Rovaniemen keilahalli",
-]
-
 interface State {
     name: string,
     place: string,
@@ -79,7 +73,7 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
         }
 
         if (props.id) fetchData()
-        
+
     }, [props.id]);
 
     const handleChange = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,16 +81,16 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
     };
 
     const handleChangeNumber = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({ ...values, [name]: parseInt(event.target.value, 10)});
+        setValues({ ...values, [name]: parseInt(event.target.value, 10) });
     };
 
-    const handleDateChange = (value: any)  => {
+    const handleDateChange = (value: any) => {
         console.log(value)
         const formatvalue = format(value, 'dd.MM.yyyy')
         console.log(formatvalue)
-        setValues({ ...values, pvm: value});
+        setValues({ ...values, pvm: value });
     };
-    
+
 
     const handleSelectChange = (name: keyof typeof values) => (
         event: React.ChangeEvent<{ value: unknown }>,
@@ -116,7 +110,7 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
 
     return (
         <form className={classes.container} noValidate autoComplete="off" onSubmit={handleFormSubmit}>
- 
+
             <KeyboardDatePicker
                 className={classes.textField}
                 clearable
@@ -124,8 +118,8 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
                 onChange={(newValue) => handleDateChange(newValue)}
                 format="dd.MM.yyyy"
                 margin="normal"
-      />
-            
+            />
+
             <FormControl className={classes.selectField}>
                 <InputLabel htmlFor="place-select" shrink={true}>Keilahalli</InputLabel>
                 <Select
@@ -203,7 +197,7 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
             alert(error.message)
         }
     }
-   
+
 }
 
 export default ScoreFields;
