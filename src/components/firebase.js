@@ -52,15 +52,15 @@ class Firebase {
 		}
 		// check if new or update
 		if (score.id) {
-			return this.db.collection('users-scores').doc(this.auth.currentUser.uid).collection('data').doc(score.id).set (
+			return this.db.collection('users-scores').doc(this.auth.currentUser.uid).collection('data').doc(score.id).set(
 				score
 				, { merge: true })
 		} else {
 			return this.db.collection(`users-scores/${this.auth.currentUser.uid}/data`).add(
-				{...score, 'name': this.getCurrentUsername()}
+				{ ...score, 'name': this.getCurrentUsername() }
 			)
 		}
-		
+
 	}
 
 	async getAllScores() {
@@ -74,7 +74,7 @@ class Firebase {
 		return scoresmap.docs.map((doc) => {
 			const id = doc.id
 			return (
-				{ ...doc.data(), id }
+				{ ...doc.data(), id, 'pvm': doc.data().pvm.toDate() }
 			)
 		}
 
@@ -89,8 +89,7 @@ class Firebase {
 		}); */
 		const data = this.db.collection('users-scores').doc(this.auth.currentUser.uid).collection('data').doc(id).get().then(function (doc) {
 			if (doc.exists) {
-				const doc_added_id = {...doc.data(), id, 'pvm': doc.data().pvm.toDate() }
-				console.log(doc_added_id)
+				const doc_added_id = { ...doc.data(), id, 'pvm': doc.data().pvm.toDate() }
 				return doc_added_id
 			} else {
 				// doc.data() will be undefined in this case

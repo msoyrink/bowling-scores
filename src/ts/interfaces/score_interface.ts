@@ -12,3 +12,10 @@ export interface IScores {
 export interface IState extends IScores {
 
 }
+
+export interface IScoredetails {
+    pvm: string,
+    series: number,
+    strikes: number,
+    info: string,
+}

@@ -10,6 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import firebase from './firebase';
 import { IScores } from '../ts/interfaces/score_interface';
+import ScoreListDetails from './ScoreListdetails';
+import { format } from 'date-fns';
 
 const useStyles = makeStyles({
   container: {
@@ -54,7 +56,7 @@ const ExpansionPanelSummary = withStyles({
   },
 })(MuiExpansionPanelSummary);
 
-const ExpansionPanelDetails = withStyles(theme => ({
+const ExpansionPanelDetails = withStyles((theme: any) => ({
   root: {
     padding: theme.spacing(2),
   },
@@ -84,6 +86,7 @@ const Scorelist: React.FC = () => {
       {scoredata && scoredata.map((score: IScores, index: number) => {
         const ariacontrol = "d-content"
         const panelid = "d-header"
+        const info = score.info ? score.info : ""
         return (
 
           <ExpansionPanel key={index} square expanded={expanded === score.id} onChange={handleChange(score.id)}>
@@ -102,7 +105,12 @@ const Scorelist: React.FC = () => {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Typography>
-                {score.info}
+                <ScoreListDetails
+                  pvm={format(score.pvm, 'dd.MM.yyyy')}
+                  series={score.series}
+                  strikes={score.strikes}
+                  info={info}
+                />
               </Typography>
             </ExpansionPanelDetails>
           </ExpansionPanel>
@@ -110,7 +118,7 @@ const Scorelist: React.FC = () => {
       }
       )
       }
-      {!scoredata && <p>EI TULOKSIA</p>}
+      {!scoredata && <p></p>}
 
     </Container>
   )

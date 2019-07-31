@@ -3,8 +3,6 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { DatePicker } from "@material-ui/pickers";
 import TextField from '@material-ui/core/TextField';
 import { InputLabel, Select, FormControl, Button } from '@material-ui/core';
-
-import { format } from 'date-fns'
 import firebase from './firebase';
 import { places } from './Keilahallit';
 import { IState } from '../ts/interfaces/score_interface';
@@ -88,9 +86,6 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
     };
 
     const handleDateChange = (value: any) => {
-        console.log(value)
-        const formatvalue = format(value, 'dd.MM.yyyy')
-        console.log(formatvalue)
         setValues({ ...values, pvm: value });
     };
 
@@ -204,7 +199,6 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
 
     async function onSave() {
         try {
-            console.log(values)
             await firebase.addScore(values)
             // props.children..history.replace('/')
         } catch (error) {
