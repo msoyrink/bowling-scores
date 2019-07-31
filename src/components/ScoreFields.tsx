@@ -112,6 +112,7 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
         <form className={classes.container} noValidate autoComplete="off" onSubmit={handleFormSubmit}>
 
             <KeyboardDatePicker
+                hiddenLabel
                 className={classes.textField}
                 clearable
                 value={values.pvm}
