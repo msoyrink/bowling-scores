@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { DatePicker } from "@material-ui/pickers";
 import TextField from '@material-ui/core/TextField';
 import { InputLabel, Select, FormControl, Button } from '@material-ui/core';
-import { KeyboardDatePicker } from "@material-ui/pickers";
+
 import { format } from 'date-fns'
 import firebase from './firebase';
 import { places } from './Keilahallit';
@@ -14,6 +15,12 @@ const useStyles = makeStyles((theme: Theme) =>
             marginRight: theme.spacing(2),
         },
         textField: {
+            marginLeft: theme.spacing(1),
+            marginRight: theme.spacing(1),
+            width: 300,
+            display: "block",
+        },
+        dateField: {
             marginLeft: theme.spacing(1),
             marginRight: theme.spacing(1),
             width: 300,
@@ -48,6 +55,7 @@ interface State {
     result: number,
     pvm: Date,
     series: number,
+    strikes: number,
     info?: string,
 }
 
@@ -61,8 +69,9 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
         name: "",
         place: "",
         info: "",
-        result: 0,
+        result: 1200,
         series: 6,
+        strikes: 0,
         pvm: new Date(),
     });
 
@@ -111,16 +120,25 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
     return (
         <form className={classes.container} noValidate autoComplete="off" onSubmit={handleFormSubmit}>
 
-            <KeyboardDatePicker
-                hiddenLabel
-                className={classes.textField}
-                clearable
+            <DatePicker
+                className={classes.dateField}
                 value={values.pvm}
                 onChange={(newValue) => handleDateChange(newValue)}
                 format="dd.MM.yyyy"
                 margin="normal"
             />
-
+            <TextField
+                id="result"
+                label="Tulos"
+                value={values.result}
+                onChange={handleChangeNumber('result')}
+                type="number"
+                className={classes.textField}
+                InputLabelProps={{
+                    shrink: true,
+                }}
+                margin="normal"
+            />
             <FormControl className={classes.selectField}>
                 <InputLabel htmlFor="place-select" shrink={true}>Keilahalli</InputLabel>
                 <Select
@@ -138,11 +156,12 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
                 </Select>
             </FormControl>
 
+
             <TextField
-                id="result"
-                label="Tulos"
-                value={values.result}
-                onChange={handleChangeNumber('result')}
+                id="rsarjat"
+                label="Sarjamäärä"
+                value={values.series}
+                onChange={handleChangeNumber('series')}
                 type="number"
                 className={classes.textField}
                 InputLabelProps={{
@@ -151,10 +170,10 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
                 margin="normal"
             />
             <TextField
-                id="rsarjat"
-                label="Sarjamäärä"
-                value={values.series}
-                onChange={handleChangeNumber('series')}
+                id="kaadot"
+                label="kaadot"
+                value={values.strikes}
+                onChange={handleChangeNumber('strikes')}
                 type="number"
                 className={classes.textField}
                 InputLabelProps={{
