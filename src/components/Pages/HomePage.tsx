@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-const Homepage: React.FC = (props:  undefined|any) => {
+const Homepage: React.FC = (props: undefined | any) => {
     const classes = useStyles();
 
 
@@ -67,7 +67,7 @@ const Homepage: React.FC = (props:  undefined|any) => {
                 <Toolbar className={classes.toolbarcontainer}>
                     <div className={classes.divTitle}>
                         <Typography variant="h6" className={classes.title}>
-                            Keilaustulokset
+                            Keilatulokset
                         </Typography>
                     </div>
                     <div className={classes.divAdd}>
