@@ -36,7 +36,6 @@ export const places = [
     "Jyväskylän Keilahalli",
     "Järvenpään keilahalli",
     "Gr8 Kaatopaikka",
-    "Kaikki Suomen keilahallit",
     "Kajaanin Keila-keskus Oy/ Puisto - bowling-food-friends",
     "Kalajoen Keilahalli",
     "Kampin keilahalli",
