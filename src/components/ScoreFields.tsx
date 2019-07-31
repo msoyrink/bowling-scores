@@ -7,6 +7,7 @@ import { InputLabel, Select, FormControl, Button } from '@material-ui/core';
 import { format } from 'date-fns'
 import firebase from './firebase';
 import { places } from './Keilahallit';
+import { IState } from '../ts/interfaces/score_interface';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -49,15 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-interface State {
-    name: string,
-    place: string,
-    result: number,
-    pvm: Date,
-    series: number,
-    strikes: number,
-    info?: string,
-}
+
 
 interface ResultProps {
     id?: string,
@@ -65,7 +58,8 @@ interface ResultProps {
 
 const ScoreFields: React.FC<ResultProps> = (props) => {
     const classes = useStyles();
-    const [values, setValues] = useState<State>({
+    const [values, setValues] = useState<IState>({
+        id: "",
         name: "",
         place: "",
         info: "",
@@ -85,11 +79,11 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
 
     }, [props.id]);
 
-    const handleChange = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (name: keyof IState) => (event: React.ChangeEvent<HTMLInputElement>) => {
         setValues({ ...values, [name]: event.target.value });
     };
 
-    const handleChangeNumber = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChangeNumber = (name: keyof IState) => (event: React.ChangeEvent<HTMLInputElement>) => {
         setValues({ ...values, [name]: parseInt(event.target.value, 10) });
     };
 

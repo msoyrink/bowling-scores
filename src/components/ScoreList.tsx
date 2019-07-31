@@ -2,19 +2,20 @@ import React, { useState, useEffect } from 'react';
 
 // import scores from './dev-Scores';
 import { Container, Icon } from '@material-ui/core';
-import { withStyles, makeStyles} from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import firebase from './firebase';
+import { IScores } from '../ts/interfaces/score_interface';
 
 const useStyles = makeStyles({
-    container: {
-      marginTop: 60,
-    },
-  });
+  container: {
+    marginTop: 60,
+  },
+});
 
 const ExpansionPanel = withStyles({
   root: {
@@ -80,14 +81,16 @@ const Scorelist: React.FC = () => {
   }
   return (
     <Container className={classes.container}>
-      {scoredata && scoredata.map((score: any, index: number) => {
+      {scoredata && scoredata.map((score: IScores, index: number) => {
         const ariacontrol = "d-content"
         const panelid = "d-header"
         return (
 
           <ExpansionPanel key={index} square expanded={expanded === score.id} onChange={handleChange(score.id)}>
             <ExpansionPanelSummary aria-controls={ariacontrol} id={panelid}>
-              <Typography style={{ flexGrow: 1 }}>{score.place} {score.result}</Typography>
+              <Typography style={{ flexGrow: 1 }}>
+                {score.place} {score.result}
+              </Typography>
               <Link to={{
                 pathname: `/score/${score.id}`,
 
@@ -108,7 +111,7 @@ const Scorelist: React.FC = () => {
       )
       }
       {!scoredata && <p>EI TULOKSIA</p>}
-      
+
     </Container>
   )
 }
