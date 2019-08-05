@@ -1,15 +1,19 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import RepIcon from '@material-ui/icons/Assessment';
 import Scorelist from '../ScoreList';
 import { withRouter } from 'react-router-dom'
 import firebase from '../firebase'
+import { IconButton, Menu, MenuItem, Box, Divider } from '@material-ui/core';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+
+
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -51,6 +55,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Homepage: React.FC = (props: undefined | any) => {
     const classes = useStyles();
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
 
 
     if (!firebase.getCurrentUsername()) {
@@ -60,6 +66,13 @@ const Homepage: React.FC = (props: undefined | any) => {
         return null
     }
 
+    function handleMenu(event: React.MouseEvent<HTMLElement>) {
+        setAnchorEl(event.currentTarget);
+    }
+
+    function handleClose() {
+        setAnchorEl(null);
+    }
 
     return (
         <div className={classes.root}>
@@ -77,15 +90,42 @@ const Homepage: React.FC = (props: undefined | any) => {
                     </div>
                     {firebase.getCurrentUsername() && (
                         <div className={classes.divLogout}>
-                            <p>{firebase.getCurrentUsername()}</p>
-                            <Button
-                                size="small"
-                                variant="contained"
-                                color="secondary"
-                                onClick={logout}
-                                className={classes.submit}>
-                                Logout
-          		                </Button>
+                            <IconButton
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={handleMenu}
+                                color="inherit"
+                            >
+                                <AccountCircle />
+                                <Box component="span" display={{ xs: 'none', sm: 'block' }}>
+                                    {firebase.getCurrentUsername()}
+                                </Box>
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorEl}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={open}
+                                onClose={handleClose}
+                            >
+                                <MenuItem onClick={logout}>{firebase.getCurrentUsername()}</MenuItem>
+                                <Divider />
+                                <MenuItem component={Link} to="/reports">
+                                    <RepIcon color="action"/>Raportti
+                                </MenuItem>
+                                <Divider />
+                                <MenuItem onClick={logout}>Kirjaudu ulos</MenuItem>
+                            </Menu>
+
                         </div>
                     )
                     }
