@@ -1,6 +1,5 @@
 import React, { SyntheticEvent, useEffect } from 'react';
 import clsx from 'clsx';
-import Button from '@material-ui/core/Button';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
 import InfoIcon from '@material-ui/icons/Info';
@@ -90,16 +89,11 @@ interface SnackProps {
     close: () => void;
 }
 export default function CustomizedSnackbars(props: SnackProps) {
-    const classes = useStyles2();
     const [open, setOpen] = React.useState(props.sopen);
 
     useEffect(() => {
         setOpen(props.sopen)
     }, [props.sopen]);
-
-    function handleClick() {
-        setOpen(true);
-    }
 
     function handleClose(event?: SyntheticEvent, reason?: string) {
         if (reason === 'clickaway') {
@@ -111,13 +105,10 @@ export default function CustomizedSnackbars(props: SnackProps) {
 
     return (
         <div>
-            <Button variant="outlined" className={classes.margin} onClick={handleClick}>
-                Open success snackbar
-      </Button>
             <Snackbar
                 anchorOrigin={{
                     vertical: 'top',
-                    horizontal: 'left',
+                    horizontal: 'right',
                 }}
                 open={open}
                 autoHideDuration={2000}
