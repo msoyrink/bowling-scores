@@ -98,7 +98,7 @@ const Scorelist: React.FC = () => {
                 pathname: `/score/${score.id}`,
 
               }} >
-                <Icon>
+                <Icon color="secondary">
                   edit
                   </Icon>
               </Link>
