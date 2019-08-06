@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, Button } from '@material-ui/core';
+import { AppBar, Toolbar, Button, Typography } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -37,6 +37,11 @@ const Reports: React.FC = () => {
                                 keyboard_backspace
                     </Icon>
                         </Button>
+                        <div>
+                            <Typography variant="h6" className={classes.title}>
+                                Tilastot
+                        </Typography>
+                        </div>
                     </Toolbar>
                 </AppBar>
 

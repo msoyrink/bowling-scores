@@ -120,7 +120,7 @@ const Homepage: React.FC = (props: undefined | any) => {
                                 <MenuItem onClick={logout}>{firebase.getCurrentUsername()}</MenuItem>
                                 <Divider />
                                 <MenuItem component={Link} to="/reports">
-                                    <RepIcon color="action"/>Raportti
+                                    <RepIcon color="action"/>Tilastot
                                 </MenuItem>
                                 <Divider />
                                 <MenuItem onClick={logout}>Kirjaudu ulos</MenuItem>
