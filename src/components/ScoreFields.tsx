@@ -88,7 +88,11 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
     };
 
     const handleChangeNumber = (name: keyof IState) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({ ...values, [name]: parseInt(event.target.value, 10) });
+        const isnum = /^\d+$/.test(event.target.value);
+        if (isnum) {
+            setValues({ ...values, [name]: parseInt(event.target.value, 10) });
+        }
+
     };
 
     const handleDateChange = (value: any) => {

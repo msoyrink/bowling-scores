@@ -76,12 +76,6 @@ function MySnackbarContentWrapper(props: Props) {
     );
 }
 
-const useStyles2 = makeStyles((theme: Theme) => ({
-    margin: {
-        margin: theme.spacing(1),
-    },
-}));
-
 interface SnackProps {
     sopen: boolean;
     message: string;
