@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Container, Icon, Box } from '@material-ui/core';
+import { Container, Icon, Box, CircularProgress } from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -136,7 +136,7 @@ const Scorelist: React.FC = () => {
       }
       )
       }
-      {!scoredata && <p></p>}
+      {!scoredata && <div id="loader"><CircularProgress /></div>}
 
     </Container>
   )
