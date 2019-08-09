@@ -87,14 +87,6 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
         setValues({ ...values, [name]: event.target.value });
     };
 
-    const handleChangeNumber = (name: keyof IState) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        const isnum = /^\d+$/.test(event.target.value);
-        if (isnum) {
-            setValues({ ...values, [name]: parseInt(event.target.value, 10) });
-        }
-
-    };
-
     const handleDateChange = (value: any) => {
         setValues({ ...values, pvm: value });
     };
@@ -130,7 +122,7 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
                 id="result"
                 label="Tulos"
                 value={values.result}
-                onChange={handleChangeNumber('result')}
+                onChange={handleChange('result')}
                 type="number"
                 className={classes.textField}
                 InputLabelProps={{
@@ -160,7 +152,7 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
                 id="rsarjat"
                 label="Sarjamäärä"
                 value={values.series}
-                onChange={handleChangeNumber('series')}
+                onChange={handleChange('series')}
                 type="number"
                 className={classes.textField}
                 InputLabelProps={{
@@ -172,7 +164,7 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
                 id="kaadot"
                 label="kaadot"
                 value={values.strikes}
-                onChange={handleChangeNumber('strikes')}
+                onChange={handleChange('strikes')}
                 type="number"
                 className={classes.textField}
                 InputLabelProps={{
