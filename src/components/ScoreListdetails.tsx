@@ -9,7 +9,6 @@ const ScoreListDetails: React.SFC<IScoredetails> = ({
 
     return (
         <Fragment>
-            {pvm} <br />
             Sarjat: {series} <br />
             Kaadot: {strikes} <br />
             <br />

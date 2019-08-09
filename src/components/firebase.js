@@ -54,7 +54,12 @@ class Firebase {
 		if (score.id) {
 			return this.db.collection('users-scores').doc(this.auth.currentUser.uid).collection('data').doc(score.id).set(
 				score
-				, { merge: true })
+				, { merge: true }).then(function () {
+					console.log("Document successfully written!");
+				})
+				.catch(function (error) {
+					console.error("Error writing document: ", error);
+				});
 		} else {
 			return this.db.collection(`users-scores/${this.auth.currentUser.uid}/data`).add(
 				{ ...score, 'name': this.getCurrentUsername() }
@@ -70,7 +75,7 @@ class Firebase {
 				console.log(doc.id, " => ", doc.data());
 			});
 		}); */
-		const scoresmap = await this.db.collection('users-scores').doc(this.auth.currentUser.uid).collection('data').get() // this.db.doc(param).get()
+		const scoresmap = await this.db.collection('users-scores').doc(this.auth.currentUser.uid).collection('data').orderBy('pvm', 'desc').get() // this.db.doc(param).get()
 		return scoresmap.docs.map((doc) => {
 			const id = doc.id
 			return (

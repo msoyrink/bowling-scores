@@ -6,6 +6,7 @@ import { InputLabel, Select, FormControl, Button } from '@material-ui/core';
 import firebase from './firebase';
 import { places } from './Keilahallit';
 import { IState } from '../ts/interfaces/score_interface';
+import CustomizedSnackbars from './Snackbar';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -66,6 +67,7 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
         strikes: 0,
         pvm: new Date(),
     });
+    const [snackopen, setSnackopen] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -77,12 +79,20 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
 
     }, [props.id]);
 
+    const handlesnackclose = () => {
+        setSnackopen(false)
+    }
+
     const handleChange = (name: keyof IState) => (event: React.ChangeEvent<HTMLInputElement>) => {
         setValues({ ...values, [name]: event.target.value });
     };
 
     const handleChangeNumber = (name: keyof IState) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({ ...values, [name]: parseInt(event.target.value, 10) });
+        const isnum = /^\d+$/.test(event.target.value);
+        if (isnum) {
+            setValues({ ...values, [name]: parseInt(event.target.value, 10) });
+        }
+
     };
 
     const handleDateChange = (value: any) => {
@@ -194,12 +204,20 @@ const ScoreFields: React.FC<ResultProps> = (props) => {
                 className={classes.submit}>
                 Tallenna
           	</Button>
+            <CustomizedSnackbars message="Tiedot tallennettu" variant="success" sopen={snackopen} close={handlesnackclose} />
         </form>
     )
 
     async function onSave() {
         try {
-            await firebase.addScore(values)
+            const scoredata: any = await firebase.addScore(values)
+            const id: string = scoredata ? scoredata.id : null
+            if (id) {
+                //new score value
+                setValues({ ...values, id: id });
+            }
+            setSnackopen(true)
+
             // props.children..history.replace('/')
         } catch (error) {
             alert(error.message)

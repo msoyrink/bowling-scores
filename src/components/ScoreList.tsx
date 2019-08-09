@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-// import scores from './dev-Scores';
-import { Container, Icon } from '@material-ui/core';
+import { Container, Icon, Box, CircularProgress } from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -91,20 +90,39 @@ const Scorelist: React.FC = () => {
 
           <ExpansionPanel key={index} square expanded={expanded === score.id} onChange={handleChange(score.id)}>
             <ExpansionPanelSummary aria-controls={ariacontrol} id={panelid}>
-              <Typography style={{ flexGrow: 1 }}>
-                {score.place} {score.result}
-              </Typography>
-              <Link to={{
-                pathname: `/score/${score.id}`,
+              <div style={{ flexGrow: 1 }}>
+                <Box display="flex" mr={1}>
+                  <div style={{ flexGrow: 1 }}>
+                    <Typography variant="h6">
+                      {format(score.pvm, 'dd.MM.yyyy')}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography variant="h6">
+                      {score.result}
+                    </Typography>
+                  </div>
+                </Box>
+                <div>
+                  <Typography variant="subtitle1">
+                    {score.place}
+                  </Typography>
+                </div>
 
-              }} >
-                <Icon>
-                  edit
+              </div>
+              <Box ml={1}>
+                <Link to={{
+                  pathname: `/score/${score.id}`,
+
+                }} >
+                  <Icon color="secondary">
+                    edit
                   </Icon>
-              </Link>
+                </Link>
+              </Box>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-              <Typography>
+              <Typography variant="body1">
                 <ScoreListDetails
                   pvm={format(score.pvm, 'dd.MM.yyyy')}
                   series={score.series}
@@ -118,7 +136,7 @@ const Scorelist: React.FC = () => {
       }
       )
       }
-      {!scoredata && <p></p>}
+      {!scoredata && <div id="loader"><CircularProgress /></div>}
 
     </Container>
   )
